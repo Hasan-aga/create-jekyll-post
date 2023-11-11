@@ -7,6 +7,9 @@ This Java application is designed to create and manage posts for a Jekyll websit
 - Java JDK 17 or higher
 - Maven (for building the project)
 
+## Using a pre-built jar file
+You can either build the jar or download a pre-built one from https://github.com/Hasan-aga/create-jekyll-post/releases/download/v1.1/create-jekyll-post-1.1-jar-with-dependencies.jar
+
 ## Building the Project
 To build the project, run the following command in the root directory of the project:
 
