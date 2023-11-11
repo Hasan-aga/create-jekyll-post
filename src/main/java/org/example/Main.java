@@ -13,6 +13,6 @@ public class Main {
     public static void main(String[] args) {
         var arguments = DataGetter.fromCMD(args);
         System.out.println(arguments);
-        FileCreator.createPostFile(arguments.get("title"), arguments.get("category"));
+        FileCreator.createPostFile(arguments.get(Arguments.TITLE), arguments.get(Arguments.CATEGORY));
     }
 }
