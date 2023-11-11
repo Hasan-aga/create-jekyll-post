@@ -1,5 +1,6 @@
 import org.example.FileCreator;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.io.File;
@@ -19,53 +20,70 @@ class FileCreatorTest {
 
     @Test
     void createPostFileAndReturnNameTest() throws IOException {
-        // Mock the static methods in Files
-        Mockito.mockStatic(Files.class);
+        String testTitle = "TestTitle";
+        String testCategory = "TestCategory";
+        String testImage = "TestImage.jpg";
+        String testPath = ".";
 
-        // Assume the posts directory exists
-        when(Files.exists(any(Path.class))).thenReturn(true);
+        // Create necessary directories
+        Path postsDirectory = Paths.get(testPath, "_posts");
+        Files.createDirectories(postsDirectory);
 
-        // Call the method to test
-        String fileName = FileCreator.createPostFileAndReturnName("TestTitle", "TestCategory", "TestImage.jpg", ".");
+        // Call the method
+        String fileName = FileCreator.createPostFileAndReturnName(testTitle, testCategory, testImage, testPath);
 
-        // Assertions and verifications
+        // Assertions
         assertNotNull(fileName);
-        // Add more assertions and verifications as needed
+
+        // Verify the file exists
+        File createdFile = postsDirectory.resolve(fileName + ".md").toFile();
+        assertTrue(createdFile.exists());
+
+        // Cleanup
+        createdFile.delete();
+        postsDirectory.toFile().delete();
     }
 
     @Test
     void createPostFileAndReturnNameWhenPostsDirDoesNotExistTest() {
-        // Mock the static methods in Files
-        Mockito.mockStatic(Files.class);
+        String testTitle = "TestTitle";
+        String testCategory = "TestCategory";
+        String testImage = "TestImage.jpg";
+        String testPath = "./nonExistentPath";
 
-        // Assume the posts directory does not exist
-        when(Files.exists(any(Path.class))).thenReturn(false);
-
-        Path expectedPath = Paths.get(".").toAbsolutePath();
-
-        // Call the method and expect an IOException
-        IOException exception = assertThrows(IOException.class, () -> {
-            FileCreator.createPostFileAndReturnName("TestTitle", "TestCategory", "TestImage.jpg", ".");
-        });
+        IOException exception = assertThrows(IOException.class, () ->
+                FileCreator.createPostFileAndReturnName(testTitle, testCategory, testImage, testPath));
 
         // Check that the exception message is as expected
-        assertEquals("posts directory could not be found in " + expectedPath, exception.getMessage());
+        assertEquals("posts directory could not be found in " + Paths.get(testPath).toAbsolutePath(), exception.getMessage());
     }
 
     @Test
     void createPostFileAndReturnNameWithNoPathTest() throws IOException {
-        // Mock the static methods in Files
-        Mockito.mockStatic(Files.class);
+        String testTitle = "TestTitle";
+        String testCategory = "TestCategory";
+        String testImage = "TestImage.jpg";
+        String testPath = "";
 
-        // Assume the posts directory exists
-        when(Files.exists(any(Path.class))).thenReturn(true);
+        // Create necessary directories
+        Path postsDirectory = Paths.get(testPath, "_posts");
+        Files.createDirectories(postsDirectory);
 
-        // Call the method without passing a path
-        String fileName = FileCreator.createPostFileAndReturnName("TestTitle", "TestCategory", "TestImage.jpg", "");
+        // Call the method
+        String fileName = FileCreator.createPostFileAndReturnName(testTitle, testCategory, testImage, testPath);
 
         // Assertions
         assertNotNull(fileName);
+
+        // Verify the file exists
+        File createdFile = postsDirectory.resolve(fileName + ".md").toFile();
+        assertTrue(createdFile.exists());
+
+        // Cleanup
+        createdFile.delete();
+        postsDirectory.toFile().delete();
     }
+
 
     @Test
     void createAssetsDirectoryIntegrationTest() {
