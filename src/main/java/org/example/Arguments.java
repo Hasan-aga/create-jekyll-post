@@ -7,6 +7,7 @@ public enum Arguments {
     TITLE("t", "title", true, "Title of the post", true),
     CATEGORY("c", "category", true, "Category of the post", true),
     IMAGE("i", "image", true, "Header of the post", false),
+    PATH("p", "path", true, "Path to blog's directory", false),
     HELP("h", "help", false, "Print this message", false);
 
     private final String opt;

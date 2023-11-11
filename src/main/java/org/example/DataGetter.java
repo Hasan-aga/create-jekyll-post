@@ -16,20 +16,7 @@ public class DataGetter {
         var argsMap = new EnumMap<Arguments, String>(Arguments.class);
         // Define options
         Options options = new Options();
-        options.addOption(Option.builder("t")
-                .longOpt(Arguments.TITLE.toString())
-                .hasArg()
-                .desc("Title of the post")
-                .required() // Make title required
-                .build());
-        options.addOption(Option.builder("c")
-                .longOpt(Arguments.CATEGORY.toString())
-                .hasArg()
-                .desc("Category of the post")
-                .required() // Make category required
-                .build());
-        options.addOption("i", Arguments.IMAGE.toString(), true, "Header of the post");
-        options.addOption("h", Arguments.HELP.toString(), false, "Print this message");
+
         for (Arguments arg : Arguments.values()) {
             options.addOption(Option.builder(arg.getOpt())
                     .longOpt(arg.getLongOpt())
@@ -53,11 +40,14 @@ public class DataGetter {
                 return argsMap;
             }
 
-            argsMap.put(Arguments.TITLE, line.getOptionValue("title"));
+            argsMap.put(Arguments.TITLE, line.getOptionValue(Arguments.TITLE.getLongOpt()));
             argsMap.put(Arguments.CATEGORY, line.getOptionValue("category"));
 
-            if (line.hasOption(Arguments.IMAGE.toString())) {
-                argsMap.put(Arguments.IMAGE, line.getOptionValue("image"));
+            if (line.hasOption(Arguments.IMAGE.getLongOpt())) {
+                argsMap.put(Arguments.IMAGE, line.getOptionValue(Arguments.IMAGE.getLongOpt()));
+            }
+            if (line.hasOption(Arguments.PATH.getLongOpt())) {
+                argsMap.put(Arguments.PATH, line.getOptionValue(Arguments.PATH.getLongOpt()));
             }
 
         } catch (ParseException exp) {
