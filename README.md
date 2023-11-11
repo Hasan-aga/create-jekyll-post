@@ -35,7 +35,7 @@ java -jar target/create-jekyll-post-1.0.jar [options]
 
 ### Example
 ```bash
-java -jar target/create-jekyll-post-1.0.jar --title "My New Post" --category "Tech" --image "header.jpg" --path "./my-blog"
+java -jar target/create-jekyll-post-1.1-jar-with-dependencies.jar --title "My New Post" --category "Tech" --image "header.jpg" --path "./my-blog"
 ```
 
 ## Features
