@@ -7,10 +7,14 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
 import java.util.EnumMap;
 import java.util.Map;
 
 public class DataGetter {
+    private DataGetter() {
+        System.out.println("This class needs not be instantiated.");
+    }
     public static Map<Arguments, String> fromCMD(String[] args) {
         var argsMap = new EnumMap<Arguments, String>(Arguments.class);
         // Define options
