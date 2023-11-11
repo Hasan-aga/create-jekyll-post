@@ -1,7 +1,5 @@
 package org.example;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,12 +9,8 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Slf4j
 public class FileCreator {
     private static final String CURRENT_DIR = ".";
-    // gets info
-    // creates post file and fills it
-    // creates assets directory
     public static String createPostFileAndReturnName(String title, String category, String imageName, String path) throws IOException {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -36,9 +30,9 @@ public class FileCreator {
             // Create the markdown file
             var file = new File(filePath.toString());
             if (file.createNewFile()) {
-                log.info("File created: " + file.getName());
+                System.out.println("File created: " + file.getName());
             } else {
-                log.info("File already exists.");
+                System.out.println("File already exists.");
                 return name;
             }
 
@@ -72,12 +66,12 @@ public class FileCreator {
         // Create the directory if it doesn't exist
         if (!directory.exists()) {
             if (directory.mkdirs()) {
-                log.info("Assets directory created: " + directory.getPath());
+                System.out.println("Assets directory created: " + directory.getPath());
             } else {
-                log.error("Failed to create assets directory: " + directory.getPath());
+                System.out.println("Failed to create assets directory: " + directory.getPath());
             }
         } else {
-            log.info("Assets directory already exists: " + directory.getPath());
+            System.out.println("Assets directory already exists: " + directory.getPath());
         }
     }
 

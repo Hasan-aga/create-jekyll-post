@@ -1,17 +1,16 @@
 package org.example;
 
-import org.apache.commons.cli.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 public class DataGetter {
-    private static final Logger logger = LoggerFactory.getLogger(DataGetter.class);
-
     public static Map<Arguments, String> fromCMD(String[] args) {
         var argsMap = new EnumMap<Arguments, String>(Arguments.class);
         // Define options
@@ -51,7 +50,7 @@ public class DataGetter {
             }
 
         } catch (ParseException exp) {
-            logger.error("Parsing failed. Reason: {}. Example use: createJekyllPost --title web-app-example-post --category web --image welcome.jpg", exp.getMessage());
+            System.out.println("Parsing failed. Reason: {}. Example use: createJekyllPost --title web-app-example-post --category web --image welcome.jpg" + exp.getMessage());
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("createJekyllPost", options);
         }
